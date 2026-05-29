@@ -1,6 +1,7 @@
 import Food from "../model/food.model.js";
 import uploadToImageKit from "../utils/uploadToImageKit.util.js";
 import {v4 as uuidv4 } from "uuid"
+
 async function createFood(req, res){
 
     const {name, description} = req.body
@@ -34,4 +35,12 @@ async function createFood(req, res){
     })
 }
 
-export {createFood}
+async function getFoodItems(req, res){
+    const foodItems = await Food.find()
+    return res.status(200).json({
+        message: "food item fetched successfully",
+        foodItems
+    })
+}
+
+export {createFood, getFoodItems}
