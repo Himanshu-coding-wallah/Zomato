@@ -111,9 +111,11 @@ async function logout(req, res){
 
 // food partner
 async function foodPartnerRegister(req, res){
-    const {name, email, password} = req.body
+    const {address, email, password, businessName, contactName, contact} = req.body
 
-    if(!name || !email || !password){
+    if(
+        [address, email, password, businessName, contactName, contact].some((field)=>field.trim() === '')
+    ){
         return res.status(400).json({
             message: "please enter details"
         })
@@ -131,7 +133,10 @@ async function foodPartnerRegister(req, res){
         const hashPass = await bcrypt.hash(password, 10)
 
         const foodPartner = await FoodPartner.create({
-            name,
+            businessName,
+            contactName,
+            contact,
+            address,
             email,
             password: hashPass
         })
@@ -147,8 +152,11 @@ async function foodPartnerRegister(req, res){
             message: "user created successfully",
             foodPartner:{
                 id: foodPartner._id,
-                name: foodPartner.name,
-                email: foodPartner.email
+                businessName: foodPartner.businessName,
+                contactName: foodPartner.contactName,
+                contact: foodPartner.contact,
+                email: foodPartner.email,
+                address: foodPartner.address
             }
         })
     }catch (error) {
@@ -196,8 +204,11 @@ async function foodPartnerLogin(req, res){
             message: "logged in successfully",
             foodPartner:{
                 id: foodPartner._id,
-                name: foodPartner.name,
-                email: foodPartner.email
+                businessName: foodPartner.businessName,
+                contactName: foodPartner.contactName,
+                contact: foodPartner.contact,
+                email: foodPartner.email,
+                address: foodPartner.address
             }
         })
 
