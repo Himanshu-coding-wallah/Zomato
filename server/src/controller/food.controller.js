@@ -1,6 +1,6 @@
 import Food from "../model/food.model.js";
 import uploadToImageKit from "../utils/uploadToImageKit.util.js";
-
+import {v4 as uuidv4 } from "uuid"
 async function createFood(req, res){
 
     const {name, description} = req.body
@@ -19,17 +19,18 @@ async function createFood(req, res){
         })
     }
 
-    const uploadedFile = await uploadToImageKit(buffer)
+    const uploadedFile = await uploadToImageKit(buffer, uuidv4())
 
     const foodItem = await Food.create({
         name,
         description,
-        video: uploadedFile?.url
+        video: uploadedFile?.url,
+        foodPartner: req.foodPartner._id
     })
 
     res.status(201).json({
         message: "food item created",
-        foodItem: uploadedFile
+        foodItem
     })
 }
 

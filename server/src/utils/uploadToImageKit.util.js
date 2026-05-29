@@ -4,11 +4,11 @@ const client = new ImageKit({
   privateKey: process.env.IMAGEKIT_PRIVATE_KEY
 });
 
-async function uploadToImageKit(buffer){
+async function uploadToImageKit(buffer, name){
     try {
         const response = await client.files.upload({
           file: buffer,
-          fileName: "video",
+          fileName: name,
         });
         
         // console.log(response);
