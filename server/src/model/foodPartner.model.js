@@ -1,7 +1,21 @@
 import mongoose from "mongoose";
+import { stringify } from "uuid";
 
 const foodPartnerSchema = new mongoose.Schema({
-    name: {
+    businessName: {
+        type: String,
+        required: true,
+    },
+    contactName: {
+        type: String,
+        required: true,
+    },
+    contact:{
+        type: Number,
+        required: true,
+        unique: true
+    },
+    address: {
         type: String,
         required: true,
     },
