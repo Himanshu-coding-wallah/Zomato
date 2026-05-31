@@ -4,11 +4,13 @@ import UserRegister from '../components/user/UserRegister.jsx'
 import UserLogin from '../components/user/UserLogin.jsx'
 import FoodPartnerRegister from '../components/food partner/FoodPartnerRegister.jsx'
 import FoodPartnerLogin from '../components/food partner/FoodPartnerLogin.jsx'
+import Home from '../components/Home.jsx'
 
 const AppRoutes = () => {
   return (
     <BrowserRouter>
         <Routes>
+            <Route path='/' element={<Home/>}  />
             <Route path='/auth/register' element={<UserRegister/>} />
             <Route path='/auth/login' element={<UserLogin/>} />
 
